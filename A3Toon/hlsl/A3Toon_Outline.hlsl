@@ -1,10 +1,10 @@
-#ifndef MY_OUTLINE
-#define MY_OUTLINE
+#ifndef AAA_OUTLINE
+#define AAA_OUTLINE
 
 #include "UnityCG.cginc"
 #include "Lighting.cginc"
-#include "../hlsl/MyShader_Macro.hlsl"
-#include "../hlsl/MyShader_Function.hlsl"
+#include "../hlsl/A3Toon_Macro.hlsl"
+#include "../hlsl/A3Toon_Function.hlsl"
 
 // Sampler
 SamplerState mainTex_linear_clamp_sampler;
@@ -76,10 +76,10 @@ v2f vert(appdata v)
     if(_UseLightColor)
     {
         // LightDir
-        float isLight = (_LightColor0.r+_LightColor0.g+_LightColor0.b) < MY_EPS ? 0. : 1.;      // DLがあるか判定
+        float isLight = (_LightColor0.r + _LightColor0.g + _LightColor0.b) < AAA_EPS ? 0. : 1.;      // DLがあるか判定
 
-        float3 groundCol = saturate(ShadeSH9(half4(0.,-1.,0.,1.)));
-        float3 skyCol = saturate(ShadeSH9(half4(0.,1.,0.,1.)));
+        float3 groundCol = saturate(ShadeSH9(half4(0., -1., 0., 1.)));
+        float3 skyCol = saturate(ShadeSH9(half4(0., 1., 0., 1.)));
 
         // LightColor
         float3 vertexLight = 0.;
@@ -97,9 +97,9 @@ v2f vert(appdata v)
                     normalWS);
             #endif
 
-        float3 sh=(float3)_MinBrightness;
-        o.lightCol = lerp((groundCol+skyCol), _LightColor0, isLight) + vertexLight;
-        o.lightCol = lerp(o.lightCol, o.lightCol * (GetValueColor(groundCol+skyCol) - sh*.5), isLight);
+        float3 sh = (float3)_MinBrightness;
+        o.lightCol = lerp((groundCol + skyCol), _LightColor0, isLight) + vertexLight;
+        o.lightCol = lerp(o.lightCol, o.lightCol * (GetValueColor(groundCol + skyCol) - sh * .5), isLight);
         o.lightCol = saturate(o.lightCol);
 
         o.sh = sh + vertexLight;
@@ -108,12 +108,12 @@ v2f vert(appdata v)
     o.vertex = UnityObjectToClipPos(v.vertex);
 
     // Fog
-    UNITY_TRANSFER_FOG(o,o.pos);
+    UNITY_TRANSFER_FOG(o, o.pos);
 
     return o;
 }
 
-float4 frag (v2f i) : SV_Target
+float4 frag(v2f i) : SV_Target
 {
     // Light
     float3 lightCol = (float3)0.;

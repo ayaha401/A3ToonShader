@@ -1,5 +1,5 @@
-#ifndef MY_VERT
-#define MY_VERT
+#ifndef AAA_VERT
+#define AAA_VERT
 
 v2f vert(appdata v)
 {
@@ -34,10 +34,10 @@ v2f vert(appdata v)
     #endif
 
     // LightDir
-    float isLight = (_LightColor0.r+_LightColor0.g+_LightColor0.b) < MY_EPS ? 0. : 1.;      // DLがあるか判定
+    float isLight = (_LightColor0.r + _LightColor0.g + _LightColor0.b) < AAA_EPS ? 0. : 1.;      // DLがあるか判定
 
-    float3 groundCol = saturate(ShadeSH9(half4(0.,-1.,0.,1.)));
-    float3 skyCol = saturate(ShadeSH9(half4(0.,1.,0.,1.)));
+    float3 groundCol = saturate(ShadeSH9(half4(0., -1., 0., 1.)));
+    float3 skyCol = saturate(ShadeSH9(half4(0., 1., 0., 1.)));
     float isBrightest = step(GetValueColor(groundCol), GetValueColor(skyCol));
     float3 defaultLightDir = float3(-cameraViewDir.x, lerp(-1., 1., isBrightest), -cameraViewDir.z);
     
@@ -67,9 +67,9 @@ v2f vert(appdata v)
                 normalWS);
         #endif
 
-        float3 sh=(float3)_MinBrightness;
+        float3 sh = (float3)_MinBrightness;
         
-        o.lightCol = lerp((groundCol+skyCol), _LightColor0, isLight) + vertexLight;
+        o.lightCol = lerp((groundCol + skyCol), _LightColor0, isLight) + vertexLight;
         o.sh = sh + vertexLight;
     #endif
 

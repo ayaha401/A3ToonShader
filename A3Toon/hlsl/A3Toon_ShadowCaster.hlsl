@@ -1,9 +1,9 @@
-#ifndef MY_SHADOWCASTER
-#define MY_SHADOWCASTER
+#ifndef AAA_SHADOWCASTER
+#define AAA_SHADOWCASTER
 
 #include "UnityCG.cginc"
-#include "../hlsl/MyShader_Macro.hlsl"
-#include "../hlsl/MyShader_Function.hlsl"
+#include "../hlsl/A3Toon_Macro.hlsl"
+#include "../hlsl/A3Toon_Function.hlsl"
 
 // Sampler
 SamplerState mainTex_linear_clamp_sampler;
@@ -66,7 +66,7 @@ float4 frag(v2f i, bool face : SV_IsFrontFace) : SV_TARGET
         alpha -= _Cutout;
     #endif
 
-    clip(alpha-MY_EPS);
+    clip(alpha - AAA_EPS);
 
     SHADOW_CASTER_FRAGMENT(i)
 

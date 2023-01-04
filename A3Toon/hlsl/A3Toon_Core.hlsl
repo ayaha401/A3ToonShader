@@ -1,11 +1,11 @@
-#ifndef MY_CORE
-#define MY_CORE
+#ifndef AAA_CORE
+#define AAA_CORE
 
 #include "UnityCG.cginc"
 #include "AutoLight.cginc"
 #include "Lighting.cginc"
-#include "../hlsl/MyShader_Macro.hlsl"
-#include "../hlsl/MyShader_Function.hlsl"
+#include "../hlsl/A3Toon_Macro.hlsl"
+#include "../hlsl/A3Toon_Function.hlsl"
 
 // Sampler
 SamplerState mainTex_linear_clamp_sampler;
@@ -61,7 +61,6 @@ uniform sampler2D _MatCapTex;
     uniform bool _PointLightLimit;
 #endif
 
-// メッシュデータが持つ情報
 struct appdata
 {
     float4 vertex : POSITION;
@@ -98,7 +97,7 @@ struct v2f
     UNITY_VERTEX_OUTPUT_STEREO
 };
 
-#include "../hlsl/MyShader_Vert.hlsl"
-#include "../hlsl/MyShader_Frag.hlsl"
+#include "../hlsl/A3Toon_Vert.hlsl"
+#include "../hlsl/A3Toon_Frag.hlsl"
 
 #endif

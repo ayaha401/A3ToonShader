@@ -1,10 +1,10 @@
-#ifndef MY_FUNCTION
-#define MY_FUNCTION
+#ifndef AAA_FUNCTION
+#define AAA_FUNCTION
 
 // モノクロ変換
 float ConvertMonochrome(float3 rgbCol)
 {
-    return dot(rgbCol, float3(0.299f, 0.587f, 0.114f));
+    return dot(rgbCol, float3(0.299, 0.587, 0.114));
 }
 
 // オブジェクトの大きさを計算
@@ -38,15 +38,15 @@ float3 Blend_RNM(float3 n1, float3 n2)
 {
     float3 t = n1 + float3(0, 0, 1);
     float3 u = n2 * float3(-1, -1, 1);
-    float3 r = normalize(t*dot(t, u) - u*t.z);
+    float3 r = normalize(t * dot(t, u) - u * t.z);
     return r;
 }
 
 // Rimlightを計算する
 float CalcRimlight(float3 V, float3 N, float width, float intensity)
 {
-    float rim = pow(saturate(1.-dot(V, N)+width), intensity);
-    rim=saturate(rim);
+    float rim = pow(saturate(1. - dot(V, N) + width), intensity);
+    rim = saturate(rim);
     return rim;
 }
 
@@ -54,7 +54,7 @@ float CalcRimlight(float3 V, float3 N, float width, float intensity)
 float CalcSpecular(float3 HV, float3 N, float smoothness)
 {
     float spec = pow(saturate(dot(HV, N)), smoothness);
-    spec=saturate(spec);
+    spec = saturate(spec);
     return spec;
 }
 

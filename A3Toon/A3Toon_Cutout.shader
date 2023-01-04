@@ -1,61 +1,61 @@
-﻿Shader "Unlit/MyShader_Cutout"
+﻿Shader "A3Toon/Cutout"
 {
     Properties
     {
         // MainColor
-        _MainTex ("Texture", 2D) = "white" {}
-        _Color("Color",Color)=(1.0,1.0,1.0,1.0)
-        _Cutout("Cutout", Range(0.0,1.0)) = 0.1
-        [Toggle] _UseVertCol ("Use Vertex Color", int)=0
-        _AlphaMask ("Alpha Mask", 2D) = "white"{}
+        _MainTex("Texture", 2D) = "white" {}
+        _Color("Color", Color) = (1.0, 1.0, 1.0, 1.0)
+        _Cutout("Cutout", Range(0.0, 1.0)) = 0.1
+        [Toggle] _UseVertCol("Use Vertex Color", int) = 0
+        _AlphaMask("Alpha Mask", 2D) = "white" {}
 
 
         // Normal
-        _BumpMap("Normal Map",2D)="bump"{}
-        _BumpScale ("Normal Scale", Range(0.0,1.0)) = 1.0
+        _BumpMap("Normal Map", 2D) = "bump" {}
+        _BumpScale("Normal Scale", Range(0.0, 1.0)) = 1.0
 
         // Shading
-        _ShadeMask("Shade Mask",2D)="black" {}
-        _ShadeColor("Shade Color",Color) = (0.0,0.0,0.0,1.0)
-        _ShadeBorder("Shade Border",Range(-1.0,1.0)) = 0.0
-        _ShadeBorderWidth("Shade Border Width",Range(0.0,1.0))=0.5
-        _Brightness("Brightness",Range(0.0,1.0))=0.0
+        _ShadeMask("Shade Mask", 2D) = "black" {}
+        _ShadeColor("Shade Color", Color) = (0.0, 0.0, 0.0, 1.0)
+        _ShadeBorder("Shade Border", Range(-1.0, 1.0)) = 0.0
+        _ShadeBorderWidth("Shade Border Width", Range(0.0, 1.0)) = 0.5
+        _Brightness("Brightness", Range(0.0, 1.0)) = 0.0
 
         // Rimlight
-        [Toggle]_UseRim("Use Rimlight",int)=0
-        _RimMask("Rimlight Mask",2D)="white" {}
-        _RimColor("Rimlight Color",Color)=(1.0,1.0,1.0,1.0)
-        _RimPower("Rimlight Power", Range(0.0,100.0)) = 1.0
-        _RimWidth("Rimlight Width", Range(0.0,1.0)) = 0.1
+        [Toggle]_UseRim("Use Rimlight", int) = 0
+        _RimMask("Rimlight Mask",2D) = "white" {}
+        _RimColor("Rimlight Color", Color) = (1.0, 1.0, 1.0, 1.0)
+        _RimPower("Rimlight Power", Range(0.0, 100.0)) = 1.0
+        _RimWidth("Rimlight Width", Range(0.0, 1.0)) = 0.1
         
         // Reflection
-        [Toggle]_UseReflect("Use Reflection",int)=0
-        _ReflectMask("Reflect Mask",2D)="white" {}
-        _Smoothness("Smoothness", Range(0.0,1.0))=0.5
-        _SpecularPower("Specular Power", Range(0.0,1.0))=0.5
+        [Toggle]_UseReflect("Use Reflection", int) = 0
+        _ReflectMask("Reflect Mask", 2D) = "white" {}
+        _Smoothness("Smoothness", Range(0.0, 1.0)) = 0.5
+        _SpecularPower("Specular Power", Range(0.0, 1.0)) = 0.5
         _MatCapTex("MatCap Texture", 2D) = "black" {}
 
         // Outline
-        [Toggle]_UseOutline("Use Outline",int)=0
-        _OutlineMask ("Outline Mask Texture",2D) = "white"{}
-        _OutlineWidth ("Outline Width",Range(0.0,1.0))=0.5
-        _OutlineColor ("Outline Color",Color) = (0.0,0.0,0.0,1.0)
-        [Toggle]_UseLightColor ("Use Light Color", int)=0
+        [Toggle] _UseOutline("Use Outline", int) = 0
+        _OutlineMask("Outline Mask Texture", 2D) = "white" {}
+        _OutlineWidth("Outline Width", Range(0.0, 1.0)) = 0.5
+        _OutlineColor("Outline Color",Color) = (0.0,0.0,0.0,1.0)
+        [Toggle] _UseLightColor("Use Light Color", int) = 0
 
         // OtherSetting
-        [Enum(Off,0 ,Front,1, Back,2)]_CullingMode("Culling",int)=0
-        [Toggle]_EnableZWrite ("ZWrite", int)=1
-        _MinBrightness ("Min Brightness", Range(0.0,1.0))=0.5
-        [Toggle]_PointLightLimit("PointLight Limit", int)=1
+        [Enum(Off,0 ,Front,1, Back,2)] _CullingMode("Culling", int) = 0
+        [Toggle] _EnableZWrite("ZWrite", int) = 1
+        _MinBrightness("Min Brightness", Range(0.0, 1.0)) = 0.5
+        [Toggle] _PointLightLimit("PointLight Limit", int) = 1
     }
 
     SubShader
     {
         Tags 
         {
-            "IgnoreProjector"="False"
-            "RenderType"="TransparentCutout"
-            "Queue"="Transparent"
+            "IgnoreProjector" = "False"
+            "RenderType" = "TransparentCutout"
+            "Queue" = "Transparent"
         }
         LOD 0
 
@@ -71,7 +71,7 @@
             Name "ForwardBase"
             Tags
             {
-                "LightMode"="ForwardBase"
+                "LightMode" = "ForwardBase"
             }
 
             Cull [_CullingMode]
@@ -89,7 +89,7 @@
 
             #define FB
             #define CUTOUT
-            #include "../MyShader/hlsl/MyShader_Core.hlsl"
+            #include "../A3Toon/hlsl/A3Toon_Core.hlsl"
             
             ENDHLSL
         }
@@ -99,7 +99,7 @@
             Name "Outline"
             Tags
             {
-                "LightMode"="ForwardBase"
+                "LightMode" = "ForwardBase"
             }
 
             Cull Front
@@ -118,7 +118,7 @@
             #define OL
             #define CUTOUT
 
-            #include "../MyShader/hlsl/MyShader_Outline.hlsl"
+            #include "../A3Toon/hlsl/A3Toon_Outline.hlsl"
 
             ENDHLSL
         }
@@ -128,7 +128,7 @@
             Name "ForwardAdd"
             Tags
             {
-                "LightMode"="ForwardAdd"
+                "LightMode" = "ForwardAdd"
             }
 
             Cull [_CullingMode]
@@ -148,7 +148,7 @@
             #define FA
             #define TRANSPARENT
 
-            #include "../MyShader/hlsl/MyShader_Core.hlsl"
+            #include "../A3Toon/hlsl/A3Toon_Core.hlsl"
             
             ENDHLSL
         }
@@ -175,7 +175,7 @@
 
             #define SC
             #define CUTOUT
-            #include "../MyShader/hlsl/MyShader_ShadowCaster.hlsl"
+            #include "../A3Toon/hlsl/A3Toon_ShadowCaster.hlsl"
 
             ENDHLSL
         }
